@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { GameCompanion } from "@/components/GameCompanion";
 import {
@@ -16,7 +17,7 @@ export default function LandingPage() {
         <header className="w-full bg-[#ffffff] rounded-[50px] px-5 sm:px-7 py-3 flex items-center justify-between border border-[#e0dbce]">
           {/* Brand Logo Container */}
           <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-[12px] bg-[#8ed462] flex items-center justify-center font-bold text-lg text-[#2c2e2a]">
+            <div className="w-10 h-10 rounded-[14px] bg-[#8ed462] flex items-center justify-center font-bold text-lg text-[#2c2e2a]">
               S
             </div>
             <div className="flex flex-col">
@@ -24,91 +25,185 @@ export default function LandingPage() {
                 Steer<span className="text-[#8ed462]">.</span>
               </span>
               <span className="text-[10px] text-[#80827f] font-medium -mt-1 hidden sm:inline">
-                Metabolic Health Club
+                Doctor-Led Metabolic Health
               </span>
             </div>
           </Link>
 
-          {/* Navigation items */}
+          {/* Navigation links */}
           <nav className="hidden md:flex items-center gap-1 text-[15px] font-medium text-[#2c2e2a]">
-            <a href="#science" className="px-4 py-2 rounded-[50px] hover:bg-[#f5f1e4] transition-colors">
-              The Science
+            <a href="#clinical-team" className="px-4 py-2 rounded-[50px] hover:bg-[#f5f1e4] transition-colors">
+              Our Doctors
             </a>
             <a href="#4pm-phenomenon" className="px-4 py-2 rounded-[50px] hover:bg-[#f5f1e4] transition-colors">
               4pm Biology
             </a>
-            <a href="#how-it-works" className="px-4 py-2 rounded-[50px] hover:bg-[#f5f1e4] transition-colors">
-              Doctor Care
+            <a href="#science" className="px-4 py-2 rounded-[50px] hover:bg-[#f5f1e4] transition-colors">
+              Diagnostics
             </a>
           </nav>
 
-          {/* Right Action: Menu & Play CTA */}
+          {/* Right Action: Play Game CTA */}
           <div className="flex items-center gap-2 sm:gap-3">
             <Link
               href="/play"
-              className="bg-[#f5f1e4] hover:bg-[#e0dbce] text-[#2c2e2a] text-[15px] font-medium px-5 sm:px-6 py-2.5 rounded-[50px] transition-all flex items-center gap-2 border border-[#e0dbce]"
+              className="bg-[#2c2e2a] hover:bg-[#1a1c18] text-[#ffffff] text-[15px] font-medium px-6 py-2.5 rounded-[50px] transition-all flex items-center gap-2.5 shadow-sm"
             >
               <span>Play 4pm Game</span>
               <div className="w-2.5 h-2.5 rounded-full bg-[#8ed462]" />
-            </Link>
-
-            <Link
-              href="/play"
-              className="hidden sm:flex bg-[#ff705d] hover:bg-[#e85b48] text-white text-[15px] font-medium px-5 py-2.5 rounded-[50px] transition-all items-center gap-2"
-            >
-              <span>Clinical Quiz</span>
-              <div className="w-2 h-2 rounded-full bg-white" />
             </Link>
           </div>
         </header>
       </div>
 
-      {/* Hero Display Block: MindMarket Massive Inter Headline on Cream Paper */}
-      <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-8 pt-12 sm:pt-20 pb-16 flex flex-col items-start">
+      {/* Hero Display Block: MindMarket Massive Headline + Doctor Character Stage */}
+      <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-8 pt-10 sm:pt-16 pb-14 flex flex-col">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* Left Hero Column */}
+          <div className="lg:col-span-7 flex flex-col items-start text-left">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-[50px] bg-[#ffffff] border border-[#e0dbce] text-xs font-semibold text-[#2c2e2a] mb-5">
+              <span className="w-2 h-2 rounded-full bg-[#8ed462] animate-pulse" />
+              Doctor-Led Clinical Quiz Game
+            </div>
 
-        {/* Oversized Inter Headline */}
-        <h1 className="text-[#2c2e2a] text-4xl sm:text-6xl md:text-7xl lg:text-[88px] font-medium tracking-[-0.05em] leading-[0.98] max-w-5xl">
-          Why hunger hits hard at 4pm, even after a full thali.
-        </h1>
+            <h1 className="text-[#2c2e2a] text-4xl sm:text-6xl md:text-7xl lg:text-[82px] font-medium tracking-[-0.05em] leading-[0.98]">
+              Why hunger hits hard at 4pm, even after a full thali.
+            </h1>
 
-        {/* Subhead & Companion */}
-        <div className="mt-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start w-full">
-          <div className="lg:col-span-7 flex flex-col gap-6">
-            <p className="text-[#80827f] text-lg sm:text-xl font-normal leading-relaxed max-w-xl">
+            <p className="mt-5 text-[#80827f] text-base sm:text-xl font-normal leading-relaxed max-w-xl">
               Most Indian adults blame weak willpower for office afternoon cravings. Real metabolic biology reveals gut hormones, insulin dips, and body composition.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <div className="mt-7 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full">
               <Link
                 href="/play"
-                className="bg-[#2c2e2a] hover:bg-[#1a1c18] text-[#ffffff] text-lg font-medium px-8 py-4 rounded-[50px] transition-all flex items-center justify-center gap-3 shadow-sm hover:scale-[1.02] active:scale-[0.98]"
+                className="bg-[#ff705d] hover:bg-[#e85b48] text-[#ffffff] text-lg font-medium px-8 py-4 rounded-[50px] transition-all flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>Enter The 4pm Game</span>
-                <div className="w-3 h-3 rounded-full bg-[#8ed462]" />
+                <span>Choose Your Doctor & Play</span>
+                <div className="w-2.5 h-2.5 rounded-full bg-white" />
               </Link>
 
-              <span className="text-[#80827f] text-sm self-center">
-                60 seconds • 6 interactive cards • Instant doctor readout
+              <span className="text-[#80827f] text-xs sm:text-sm self-center">
+                60s interactive game • 6 cards • Real doctor feedback
               </span>
             </div>
           </div>
 
-          <div className="lg:col-span-5 flex flex-col">
-            <div className="bg-[#ffffff] rounded-[50px] p-6 border border-[#e0dbce] flex flex-col gap-4">
-              <GameCompanion
-                emotion="idle"
-                message="Hi! I'm Dr. Steer. Step inside our interactive game to test your metabolic intuition!"
-                size="md"
-              />
-              <div className="text-xs text-[#80827f] pt-2 border-t border-[#f5f1e4]">
-                Steer guides members through blood tests, gut microbiome analysis, and DEXA scans.
+          {/* Right Hero Stage: Real Doctor Illustration Banner */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            <div className="relative w-full bg-[#ffffff] rounded-[50px] p-6 sm:p-8 border border-[#e0dbce] shadow-sm flex flex-col items-center">
+              <div className="relative w-48 sm:w-56 h-72 sm:h-80 drop-shadow-md">
+                <Image
+                  src="/images/female doctor.jpg"
+                  alt="Dr. Meera • Steer Health Guide"
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
+
+              {/* Dynamic Game Callout */}
+              <div className="w-full mt-4 bg-[#f5f1e4] p-4 rounded-[28px] border border-[#e0dbce]">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-bold text-[#2c2e2a]">Dr. Meera • Lead Physician</span>
+                  <span className="text-[10px] bg-[#8ed462] text-[#2c2e2a] px-2 py-0.5 rounded-full font-bold">READY</span>
+                </div>
+                <p className="text-xs text-[#80827f] leading-snug">
+                  &ldquo;I’ll guide you through 6 real metabolic cards to see if GLP-1 and our clinical roadmap fit your routine.&rdquo;
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* MindMarket Illustration Hero Panel: Paper-cut Character Art directly on Cream */}
+      {/* Select Your Clinical Guide Section */}
+      <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-8 py-10" id="clinical-team">
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+          <div>
+            <span className="text-xs font-bold text-[#8ed462] uppercase tracking-wider">Meet The Game Guides</span>
+            <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-[#2c2e2a] mt-1">
+              Choose your doctor mentor
+            </h2>
+          </div>
+          <p className="text-sm text-[#80827f] max-w-md">
+            Pick who guides your quiz session. Each doctor provides real-time reactions and commentary as you swipe.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Guide 1: Female Doctor */}
+          <div className="bg-[#ffffff] rounded-[50px] p-6 border border-[#e0dbce] flex flex-col items-center text-center justify-between hover:border-[#8ed462] transition-all group">
+            <div className="relative w-36 h-52 my-2">
+              <Image
+                src="/images/female doctor.jpg"
+                alt="Dr. Meera"
+                fill
+                className="object-contain group-hover:scale-105 transition-transform"
+              />
+            </div>
+            <div className="w-full pt-4 border-t border-[#f5f1e4]">
+              <h3 className="text-xl font-medium text-[#2c2e2a]">Dr. Meera</h3>
+              <p className="text-xs text-[#80827f] mt-0.5">Metabolic Physiology & Satiety Pacing</p>
+              <Link
+                href="/play?doc=female"
+                className="w-full mt-4 bg-[#f5f1e4] group-hover:bg-[#8ed462] text-[#2c2e2a] text-xs font-semibold py-3 px-4 rounded-[50px] transition-all flex items-center justify-center gap-1.5"
+              >
+                <span>Select Dr. Meera</span>
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Guide 2: Male Doctor */}
+          <div className="bg-[#ffffff] rounded-[50px] p-6 border border-[#e0dbce] flex flex-col items-center text-center justify-between hover:border-[#8ed462] transition-all group">
+            <div className="relative w-36 h-52 my-2">
+              <Image
+                src="/images/male doctor.jpg"
+                alt="Dr. Aryan"
+                fill
+                className="object-contain group-hover:scale-105 transition-transform"
+              />
+            </div>
+            <div className="w-full pt-4 border-t border-[#f5f1e4]">
+              <h3 className="text-xl font-medium text-[#2c2e2a]">Dr. Aryan</h3>
+              <p className="text-xs text-[#80827f] mt-0.5">DEXA Scanning & Muscle Preservation</p>
+              <Link
+                href="/play?doc=male"
+                className="w-full mt-4 bg-[#f5f1e4] group-hover:bg-[#8ed462] text-[#2c2e2a] text-xs font-semibold py-3 px-4 rounded-[50px] transition-all flex items-center justify-center gap-1.5"
+              >
+                <span>Select Dr. Aryan</span>
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Guide 3: Both Male and Female Clinical Board */}
+          <div className="bg-[#ffffff] rounded-[50px] p-6 border border-[#e0dbce] flex flex-col items-center text-center justify-between hover:border-[#8ed462] transition-all group">
+            <div className="relative w-44 h-52 my-2">
+              <Image
+                src="/images/both male and female doctor.jpg"
+                alt="Steer Clinical Board"
+                fill
+                className="object-contain group-hover:scale-105 transition-transform"
+              />
+            </div>
+            <div className="w-full pt-4 border-t border-[#f5f1e4]">
+              <h3 className="text-xl font-medium text-[#2c2e2a]">Clinical Review Board</h3>
+              <p className="text-xs text-[#80827f] mt-0.5">Endocrinology & Nutrition Synergy</p>
+              <Link
+                href="/play?doc=team"
+                className="w-full mt-4 bg-[#f5f1e4] group-hover:bg-[#8ed462] text-[#2c2e2a] text-xs font-semibold py-3 px-4 rounded-[50px] transition-all flex items-center justify-center gap-1.5"
+              >
+                <span>Select Clinical Board</span>
+                <span>→</span>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 4pm Phenomenon: MindMarket Content Panel */}
       <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-8 py-10" id="4pm-phenomenon">
         <div className="bg-[#ffffff] rounded-[50px] p-8 sm:p-14 border border-[#e0dbce] grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-6 flex flex-col gap-4">
@@ -145,8 +240,8 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 3 Storybook Content Cards (MindMarket 50px rounded cards) */}
-      <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-8 py-12" id="science">
+      {/* 3 Storybook Content Cards */}
+      <section className="w-full max-w-[1200px] mx-auto px-4 sm:px-8 py-10" id="science">
         <div className="mb-8">
           <h2 className="text-3xl sm:text-4xl font-medium tracking-tight text-[#2c2e2a]">
             Doctor-led diagnostic care for lasting results.
@@ -157,7 +252,6 @@ export default function LandingPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Card 1 */}
           <div className="bg-[#ffffff] rounded-[50px] p-8 border border-[#e0dbce] flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-[20px] bg-[#f5f1e4] flex items-center justify-center text-[#2c2e2a] mb-6">
@@ -175,7 +269,6 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Card 2 */}
           <div className="bg-[#ffffff] rounded-[50px] p-8 border border-[#e0dbce] flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-[20px] bg-[#f5f1e4] flex items-center justify-center text-[#2c2e2a] mb-6">
@@ -193,17 +286,16 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Card 3 (Action Service Card with Coral Pop Button) */}
           <div className="bg-[#ffffff] rounded-[50px] p-8 border border-[#e0dbce] flex flex-col justify-between">
             <div>
               <div className="w-12 h-12 rounded-[20px] bg-[#8ed462]/20 flex items-center justify-center text-[#2c2e2a] font-bold text-lg mb-6">
-                🎯
+                ★
               </div>
               <h3 className="text-2xl font-medium text-[#2c2e2a] tracking-tight">
-                Play The 4pm Game
+                Interactive Quiz Arena
               </h3>
               <p className="text-[#80827f] text-sm leading-relaxed mt-3">
-                Six Myth or Fact cards that tackle safety, rebound, muscle retention, and Indian meal pacing in 60 seconds.
+                Swipe Myth or Fact with instant feedback, live streaks, and doctor-evaluated scorecards.
               </p>
             </div>
             <div className="mt-8">
@@ -219,7 +311,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* MindMarket Sunshine Pop Closing Footer Band */}
+      {/* MindMarket Sunshine Pop Closing Footer */}
       <footer className="w-full mt-auto bg-[#f5e211] text-[#2c2e2a] py-12 px-4 sm:px-8 border-t border-[#2c2e2a]">
         <div className="max-w-[1200px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div className="flex flex-col text-center sm:text-left">
@@ -227,7 +319,7 @@ export default function LandingPage() {
               Steer Metabolic Health Club
             </span>
             <span className="text-xs text-[#2c2e2a]/80 mt-1 max-w-md">
-              Doctor-led care • Blood diagnostics • DEXA composition tracking • Habit coaching. Educational experience only.
+              Doctor-led care • Blood diagnostics • DEXA composition tracking • Habit coaching. Educational game experience only.
             </span>
           </div>
 

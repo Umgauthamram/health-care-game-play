@@ -18,6 +18,7 @@ interface QuizCardProps {
   selectedAnswer: "MYTH" | "FACT" | null;
   onNext: () => void;
   streak: number;
+  doctor?: "female" | "male" | "team";
 }
 
 export function QuizCardView({
@@ -27,7 +28,8 @@ export function QuizCardView({
   onAnswer,
   selectedAnswer,
   onNext,
-  streak
+  streak,
+  doctor = "female"
 }: QuizCardProps) {
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-200, 200], [-12, 12]);
@@ -88,6 +90,7 @@ export function QuizCardView({
       {/* Game Character Companion Live Reaction Header */}
       <div className="w-full mb-4">
         <GameCompanion
+          doctor={doctor}
           emotion={
             !isAnswered
               ? "thinking"

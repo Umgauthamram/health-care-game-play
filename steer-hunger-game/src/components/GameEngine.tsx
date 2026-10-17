@@ -23,13 +23,18 @@ import { GameCompanion } from "@/components/GameCompanion";
 
 interface GameEngineProps {
   initialSource?: "meta" | "website";
+  initialScreen?: GameScreen;
   isEmbedded?: boolean;
 }
 
 const STORAGE_KEY = "steer_hunger_game_v1";
 
-export function GameEngine({ initialSource = "website", isEmbedded = false }: GameEngineProps) {
-  const [screen, setScreen] = useState<GameScreen>("hook");
+export function GameEngine({
+  initialSource = "website",
+  initialScreen = "doubts",
+  isEmbedded = false
+}: GameEngineProps) {
+  const [screen, setScreen] = useState<GameScreen>(initialScreen);
   const [chosenDoubts, setChosenDoubts] = useState<string[]>([]);
   const [currentCardIndex, setCurrentCardIndex] = useState<number>(0);
   const [userAnswers, setUserAnswers] = useState<Record<number, "MYTH" | "FACT">>({});
@@ -60,18 +65,24 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
       const saved = sessionStorage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed.screen) setScreen(parsed.screen);
+        if (parsed.screen && parsed.screen !== "hook") {
+          setScreen(parsed.screen);
+        } else {
+          setScreen(initialScreen);
+        }
         if (parsed.chosenDoubts) setChosenDoubts(parsed.chosenDoubts);
         if (parsed.currentCardIndex !== undefined) setCurrentCardIndex(parsed.currentCardIndex);
         if (parsed.userAnswers) setUserAnswers(parsed.userAnswers);
         if (parsed.score !== undefined) setScore(parsed.score);
         if (parsed.streak !== undefined) setStreak(parsed.streak);
         if (parsed.mythsMissed) setMythsMissed(parsed.mythsMissed);
+      } else {
+        setScreen(initialScreen);
       }
     } catch {
       // ignore
     }
-  }, []);
+  }, [initialScreen]);
 
   useEffect(() => {
     try {
@@ -323,9 +334,9 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
       <header className="w-full bg-white border-b border-[#E8DED1] sticky top-0 z-40">
         <div className="w-full px-4 sm:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <span className="font-serif text-2xl font-bold tracking-tight text-[#153A2D]">
+            <a href="/" className="font-serif text-2xl font-bold tracking-tight text-[#153A2D] hover:opacity-85 transition-opacity">
               Steer<span className="text-[#E27D30]">.</span>
-            </span>
+            </a>
             <div className="hidden sm:flex items-center gap-2 pl-4 border-l border-[#E8DED1]">
               <span className="text-xs font-semibold text-[#153A2D] tracking-wide">
                 The 4pm Hunger Game
@@ -562,13 +573,12 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
               </div>
 
               <div className="mt-8 pt-6 border-t border-[#E8DED1] flex flex-col sm:flex-row items-center justify-between gap-4">
-                <button
-                  type="button"
-                  onClick={handleBack}
-                  className="text-sm text-[#5A6560] font-semibold hover:text-[#153A2D] transition-colors order-2 sm:order-1"
+                <a
+                  href="/"
+                  className="text-sm text-[#5A6560] font-semibold hover:text-[#153A2D] transition-colors order-2 sm:order-1 cursor-pointer"
                 >
-                  ← Back to Hook
-                </button>
+                  ← Back to Home
+                </a>
 
                 <button
                   type="button"
