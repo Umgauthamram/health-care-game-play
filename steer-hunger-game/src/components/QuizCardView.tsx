@@ -10,6 +10,7 @@ import {
   Clock4PMRadial
 } from "@/components/Illustrations";
 import { ParticleBurst } from "@/components/ParticleBurst";
+import { GameCompanion } from "@/components/GameCompanion";
 
 interface QuizCardProps {
   card: QuizCardType;
@@ -30,7 +31,6 @@ export function QuizCardView({
   onNext,
   streak
 }: QuizCardProps) {
-  const [dragOffset, setDragOffset] = useState<number>(0);
   const x = useMotionValue(0);
   const rotate = useTransform(x, [-200, 200], [-12, 12]);
   const mythOpacity = useTransform(x, [-120, -30], [1, 0]);
@@ -41,7 +41,7 @@ export function QuizCardView({
 
   const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
     if (isAnswered) return;
-    const threshold = 85;
+    const threshold = 75;
     if (info.offset.x < -threshold) {
       onAnswer("MYTH");
     } else if (info.offset.x > threshold) {
@@ -49,7 +49,6 @@ export function QuizCardView({
     }
   };
 
-  // Render contextual illustration for the card
   const renderIllustration = () => {
     switch (card.illustrationType) {
       case "hunger":
@@ -73,22 +72,55 @@ export function QuizCardView({
     }
   };
 
+  // Companion avatar feedback message
+  const getCompanionFeedback = () => {
+    if (!isAnswered) {
+      if (cardIndex === 0) return "Swipe or tap to call it: Myth or Fact?";
+      return "What do your gut instincts say on this one?";
+    }
+    if (isCorrect) {
+      if (streak >= 3) return "Incredible streak! You have sharp metabolic intuition!";
+      if (streak === 2) return "Spot on! That's 2 correct in a row!";
+      return "Excellent! You broke through a common misconception!";
+    }
+    return "Surprising, isn't it? Even medical guidelines took time to clarify this!";
+  };
+
   return (
-    <div className="relative w-full flex-1 flex flex-col items-center justify-between pb-4">
+    <div className="relative w-full flex-1 flex flex-col items-center justify-between pb-2">
+      {/* Game Character Companion Live Reaction Header */}
+      <div className="w-full max-w-sm mb-3">
+        <GameCompanion
+          emotion={
+            !isAnswered
+              ? "thinking"
+              : isCorrect
+              ? streak >= 2
+                ? "victory"
+                : "celebrate"
+              : "encourage"
+          }
+          message={getCompanionFeedback()}
+          size="sm"
+        />
+      </div>
+
       {/* Streak badge */}
       {streak >= 2 && (
         <motion.div
-          initial={{ scale: 0.8, opacity: 0, y: -10 }}
+          initial={{ scale: 0.8, opacity: 0, y: -6 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           className="mb-2 px-3 py-1 bg-[#E27D30] text-white rounded-full text-xs font-bold tracking-wide shadow-sm flex items-center gap-1.5"
         >
-          <span>🔥</span>
-          <span>{streak} in a row! On a roll</span>
+          <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.507.787-.798 1.708-.948 2.608C8.5 6.643 8.01 7.785 7.42 8.783c-.482.813-1.084 1.558-1.745 2.193a.998.998 0 00-.28.847c.07.575.39 1.09.877 1.408.825.539 1.78.85 2.766.892.482.02.96-.06 1.413-.23.633-.238 1.18-.65 1.583-1.188.384-.51.61-1.127.65-1.764.062-.977-.282-1.956-.967-2.738-.285-.325-.5-.705-.623-1.114a3.996 3.996 0 01-.137-1.144c.045-.584.267-1.139.638-1.597.26-.32.58-.58.94-.766.38-.198.81-.29 1.25-.268.44.022.86.158 1.22.395.27.177.5.405.67.67.35.54.52 1.18.49 1.83-.04.9-.38 1.76-.98 2.45-.33.38-.56.84-.66 1.33-.12.59-.06 1.2.17 1.76.24.58.64 1.07 1.16 1.42.5.34 1.09.52 1.69.53.52.01 1.03-.13 1.48-.41.4-.25.7-.62.86-1.06.18-.49.19-1.03.04-1.54-.25-.87-.75-1.64-1.44-2.22-.64-.54-1.17-1.2-1.55-1.94-.38-.75-.58-1.58-.58-2.42 0-.94.27-1.85.78-2.63.26-.39.58-.73.95-1.01a1 1 0 00-.32-1.74z" clipRule="evenodd" />
+          </svg>
+          <span>Streak: {streak} in a row!</span>
         </motion.div>
       )}
 
       {/* Interactive Card */}
-      <div className="relative w-full max-w-sm flex-1 flex flex-col justify-center my-auto min-h-[340px]">
+      <div className="relative w-full max-w-sm flex-1 flex flex-col justify-center my-auto min-h-[300px]">
         <ParticleBurst active={isAnswered && isCorrect} />
 
         <motion.div
@@ -96,7 +128,6 @@ export function QuizCardView({
           drag={isAnswered ? false : "x"}
           dragConstraints={{ left: 0, right: 0 }}
           dragElastic={0.65}
-          onDrag={(_, info) => setDragOffset(info.offset.x)}
           onDragEnd={handleDragEnd}
           initial={{ scale: 0.95, opacity: 0, y: 15 }}
           animate={
@@ -110,7 +141,7 @@ export function QuizCardView({
                 }
               : { scale: 1, opacity: 1, y: 0 }
           }
-          className={`relative w-full bg-white rounded-3xl p-6 border transition-shadow duration-300 select-none cursor-grab active:cursor-grabbing flex flex-col items-center justify-between min-h-[320px] shadow-sm ${
+          className={`relative w-full bg-white rounded-3xl p-5 border transition-all duration-300 select-none cursor-grab active:cursor-grabbing flex flex-col items-center justify-between min-h-[300px] shadow-sm ${
             isAnswered
               ? isCorrect
                 ? "border-[#153A2D]/40 ring-2 ring-[#153A2D]/10"
@@ -121,19 +152,17 @@ export function QuizCardView({
           {/* Drag Color Overlays */}
           {!isAnswered && (
             <>
-              {/* Myth stamp indicator (left swipe) */}
               <motion.div
                 style={{ opacity: mythOpacity }}
-                className="absolute top-4 left-4 border-2 border-red-500 text-red-600 px-3 py-1 rounded-xl font-black text-sm tracking-wider uppercase rotate-[-12deg] pointer-events-none bg-red-50/90 z-20"
+                className="absolute top-4 left-4 border-2 border-red-500 text-red-600 px-3 py-1 rounded-xl font-black text-xs tracking-wider uppercase rotate-[-12deg] pointer-events-none bg-red-50/95 z-20"
               >
-                MYTH
+                SWIPING MYTH
               </motion.div>
-              {/* Fact stamp indicator (right swipe) */}
               <motion.div
                 style={{ opacity: factOpacity }}
-                className="absolute top-4 right-4 border-2 border-[#153A2D] text-[#153A2D] px-3 py-1 rounded-xl font-black text-sm tracking-wider uppercase rotate-[12deg] pointer-events-none bg-emerald-50/90 z-20"
+                className="absolute top-4 right-4 border-2 border-[#153A2D] text-[#153A2D] px-3 py-1 rounded-xl font-black text-xs tracking-wider uppercase rotate-[12deg] pointer-events-none bg-emerald-50/95 z-20"
               >
-                FACT
+                SWIPING FACT
               </motion.div>
             </>
           )}
@@ -143,16 +172,16 @@ export function QuizCardView({
             <span className="px-2.5 py-0.5 rounded-full bg-[#F4ECE1] text-[#153A2D]">
               {card.tag}
             </span>
-            <span>Card {cardIndex + 1} of {totalCards}</span>
+            <span className="tabular-nums">Card {cardIndex + 1} of {totalCards}</span>
           </div>
 
           {/* Center Illustration */}
-          <div className="py-3 flex items-center justify-center">
+          <div className="py-2 flex items-center justify-center">
             {renderIllustration()}
           </div>
 
           {/* Statement */}
-          <div className="text-center my-2">
+          <div className="text-center my-1.5">
             <h2 className="font-serif text-lg md:text-xl font-semibold text-[#1E2220] leading-snug">
               &ldquo;{card.statement}&rdquo;
             </h2>
@@ -161,20 +190,20 @@ export function QuizCardView({
           {/* Swipe hint */}
           {!isAnswered && (
             <p className="text-[11px] text-[#5A6560] font-medium tracking-wide">
-              ← Swipe Left (Myth) • Swipe Right (Fact) →
+              Swipe Left for Myth • Swipe Right for Fact
             </p>
           )}
 
           {/* State feedback banner when answered */}
           {isAnswered && (
             <div
-              className={`w-full py-1.5 px-3 rounded-xl text-center text-xs font-bold tracking-wide mt-2 ${
+              className={`w-full py-1.5 px-3 rounded-xl text-center text-xs font-bold tracking-wide mt-1.5 ${
                 isCorrect
                   ? "bg-[#153A2D] text-white"
                   : "bg-[#F4ECE1] text-[#153A2D]"
               }`}
             >
-              {isCorrect ? "✓ Spot on! You know your biology." : "Good try! Science is counter-intuitive."}
+              {isCorrect ? "Correct! High medical accuracy." : "Educational Insight: See doctor notes below"}
             </div>
           )}
         </motion.div>
@@ -183,7 +212,7 @@ export function QuizCardView({
       {/* Answer Choice Buttons or Explanation Bottom Sheet */}
       <div className="w-full max-w-sm mt-3">
         {!isAnswered ? (
-          <div className="grid grid-cols-2 gap-3.5">
+          <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
               onClick={() => onAnswer("MYTH")}
@@ -205,29 +234,24 @@ export function QuizCardView({
             animate={{ opacity: 1, y: 0 }}
             className="w-full bg-[#FFFFFF] rounded-2xl p-4 border border-[#E8DED1] shadow-md flex flex-col gap-2.5"
           >
-            <div className="flex items-start gap-2">
-              <span className="text-lg">
-                {card.answer === "MYTH" ? "💡" : "🔬"}
-              </span>
-              <div>
-                <h3 className="text-sm font-bold text-[#153A2D]">
-                  {card.headline}
-                </h3>
-                <p className="text-xs text-[#5A6560] leading-relaxed mt-1">
-                  {card.explanation}
-                </p>
-              </div>
+            <div>
+              <h3 className="text-sm font-bold text-[#153A2D]">
+                {card.headline}
+              </h3>
+              <p className="text-xs text-[#5A6560] leading-relaxed mt-1">
+                {card.explanation}
+              </p>
             </div>
 
             <div className="text-[11px] bg-[#FBF8F3] p-2.5 rounded-xl border border-[#EADECF] text-[#153A2D]">
-              <strong className="font-semibold text-[#153A2D]">Steer Doctor Note: </strong>
+              <strong className="font-semibold text-[#153A2D]">Doctor Review: </strong>
               {card.doctorTakeaway}
             </div>
 
             <button
               type="button"
               onClick={onNext}
-              className="w-full py-3 px-4 rounded-xl bg-[#153A2D] text-white font-bold text-sm hover:bg-[#205743] active:scale-95 transition-all flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#153A2D]"
+              className="w-full py-3.5 px-4 rounded-xl bg-[#153A2D] text-white font-bold text-sm hover:bg-[#205743] active:scale-95 transition-all flex items-center justify-center gap-1.5 focus:outline-none focus:ring-2 focus:ring-[#153A2D]"
             >
               <span>{cardIndex + 1 < totalCards ? "Next Question" : "See Your Clinical Readout"}</span>
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
