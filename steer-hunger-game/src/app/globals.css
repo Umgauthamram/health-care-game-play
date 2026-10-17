@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  --steer-bg: #FBF8F3;
+  --steer-bg-surface: #FFFFFF;
+  --steer-bg-warm: #F4ECE1;
+  --steer-primary: #153A2D;
+  --steer-primary-light: #205743;
+  --steer-primary-dark: #0D261D;
+  --steer-saffron: #E27D30;
+  --steer-saffron-hover: #C85E16;
+  --steer-text-dark: #1E2220;
+  --steer-text-muted: #5A6560;
+  --steer-border: #E8DED1;
+  --steer-card-shadow: 0 4px 20px -2px rgba(21, 58, 45, 0.08);
+}
+
+body {
+  background-color: var(--steer-bg);
+  color: var(--steer-text-dark);
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
+}
+
+.font-sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Custom breathing pulse for Hook CTA */
+@keyframes breathingPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 18px rgba(226, 125, 48, 0.35);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 8px 26px rgba(226, 125, 48, 0.55);
+  }
+}
+
+.animate-breathing {
+  animation: breathingPulse 2.8s ease-in-out infinite;
+}
+
+.animate-breathing:hover,
+.animate-breathing:active {
+  animation: none;
+}
+
+/* Shine sweep animation for Handoff CTA */
+@keyframes shineSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shine-sweep {
+  background-image: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.35) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  background-size: 200% 100%;
+  animation: shineSweep 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+/* Safe area insets for mobile Safari/Chrome */
+.safe-pb {
+  padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .animate-breathing {
+    animation: none !important;
+  }
+}
