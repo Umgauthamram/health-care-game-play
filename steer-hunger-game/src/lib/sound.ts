@@ -173,6 +173,31 @@ class SoundEngine {
     }
   }
 
+  public playCelebration() {
+    this.vibrate([20, 50, 20, 50, 30]);
+    if (this.isMuted) return;
+    try {
+      this.initCtx();
+      if (!this.ctx) return;
+      const now = this.ctx.currentTime;
+      [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) => {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, now + i * 0.08);
+        gain.gain.setValueAtTime(0.1, now + i * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.3);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now + i * 0.08);
+        osc.stop(now + i * 0.08 + 0.32);
+      });
+    } catch {
+      // silent
+    }
+  }
+
   private vibrate(pattern: number | number[]) {
     if (typeof window !== "undefined" && "vibrate" in navigator) {
       try {

@@ -30,7 +30,6 @@ export function GameCompanion({
   size = "md",
   className = ""
 }: GameCompanionProps) {
-  // Choose image asset
   const getImageSrc = () => {
     switch (doctor) {
       case "male":
@@ -46,12 +45,12 @@ export function GameCompanion({
   const getDoctorName = () => {
     switch (doctor) {
       case "male":
-        return "Dr. Aryan • Metabolic Lead";
+        return "Dr. Aryan, MD • Lead DEXA Specialist";
       case "team":
-        return "Steer Clinical Board";
+        return "Steer Clinical Board • Review Panel";
       case "female":
       default:
-        return "Dr. Meera • Steer Health Guide";
+        return "Dr. Meera, MD • Metabolic Physician";
     }
   };
 
@@ -86,7 +85,7 @@ export function GameCompanion({
         }`}
       >
         {isFullBody ? (
-          <div className="relative w-full h-full drop-shadow-md">
+          <div className="relative w-full h-full drop-shadow-xl">
             <Image
               src={getImageSrc()}
               alt={getDoctorName()}
@@ -96,7 +95,7 @@ export function GameCompanion({
             />
           </div>
         ) : (
-          <div className="relative w-full h-full rounded-[24px] overflow-hidden border-2 border-[#8ed462] bg-[#f5f1e4] shadow-sm">
+          <div className="relative w-full h-full rounded-[22px] overflow-hidden border-2 border-[#D4AF37]/50 bg-[#143026] shadow-lg">
             <Image
               src={getImageSrc()}
               alt={getDoctorName()}
@@ -105,7 +104,7 @@ export function GameCompanion({
               priority
             />
             {/* Live Status indicator */}
-            <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-[#8ed462] border-2 border-white ring-1 ring-[#2c2e2a]/20" />
+            <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-[#D4AF37] border-2 border-[#0D1612]" />
           </div>
         )}
 
@@ -114,7 +113,7 @@ export function GameCompanion({
           <motion.div
             initial={{ scale: 0, rotate: -20 }}
             animate={{ scale: 1, rotate: 0 }}
-            className="absolute -top-1.5 -right-1.5 bg-[#8ed462] text-[#2c2e2a] px-2 py-0.5 rounded-full text-[10px] font-bold shadow-md flex items-center gap-1 border border-[#2c2e2a]/10"
+            className="absolute -top-1.5 -right-1.5 bg-[#D4AF37] text-[#0D1612] px-2 py-0.5 rounded-full text-[10px] font-bold shadow-md flex items-center gap-1 border border-white/20"
           >
             <span>★</span>
             <span>Accurate</span>
@@ -122,7 +121,7 @@ export function GameCompanion({
         )}
       </motion.div>
 
-      {/* Comic / Game Speech Bubble */}
+      {/* Luxury Doctor Speech Bubble */}
       {message && (
         <AnimatePresence mode="wait">
           <motion.div
@@ -130,17 +129,16 @@ export function GameCompanion({
             initial={{ opacity: 0, scale: 0.95, x: -8 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
-            className="relative flex-1 bg-[#ffffff] px-4 py-3 rounded-[24px] border border-[#e0dbce] shadow-sm text-xs sm:text-sm"
+            className="relative flex-1 bg-[#143026] px-4 py-3 rounded-[20px] border border-[#D4AF37]/35 shadow-xl text-xs sm:text-sm"
           >
             {/* Bubble arrow pointer */}
-            <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-0 h-0 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent border-r-[8px] border-r-[#ffffff]" />
-            <div className="absolute top-1/2 -left-2.5 -translate-y-1/2 w-0 h-0 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent border-r-[9px] border-r-[#e0dbce] -z-10" />
+            <div className="absolute top-1/2 -left-2 -translate-y-1/2 w-0 h-0 border-t-[7px] border-t-transparent border-b-[7px] border-b-transparent border-r-[8px] border-r-[#143026]" />
 
-            <div className="font-semibold text-[#2c2e2a] text-[11px] tracking-wide uppercase mb-0.5 flex items-center gap-1.5">
+            <div className="font-semibold text-[#D4AF37] text-[11px] tracking-wide uppercase mb-0.5 flex items-center gap-1.5">
               <span>{getDoctorName()}</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-[#8ed462] animate-pulse" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] animate-pulse" />
             </div>
-            <p className="text-[#2c2e2a] font-normal leading-relaxed">{message}</p>
+            <p className="text-[#F7F5F0] font-normal leading-relaxed">{message}</p>
           </motion.div>
         </AnimatePresence>
       )}

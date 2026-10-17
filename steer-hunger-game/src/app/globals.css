@@ -1,45 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-fresh-grass: #8ed462;
-  --color-cream-paper: #f5f1e4;
-  --color-ink-black: #2c2e2a;
-  --color-pure-white: #ffffff;
-  --color-sandstone: #e0dbce;
-  --color-stone-gray: #80827f;
-  --color-hairline-mist: #d5d5d4;
-  --color-pure-ink: #000000;
-  --color-sky-pop: #2ba0ff;
-  --color-coral-pop: #ff705d;
-  --color-sunshine-pop: #f5e211;
+  --color-steer-obsidian: #0D1612;
+  --color-steer-forest: #143026;
+  --color-steer-emerald: #1B4D3E;
+  --color-steer-jade: #2E7D62;
+  --color-steer-gold: #D4AF37;
+  --color-steer-bronze: #C58A38;
+  --color-steer-sand: #F7F5F0;
+  --color-steer-card: #FFFFFF;
+  --color-steer-muted: #64746B;
 
-  --font-inter: var(--font-inter), 'Inter', ui-sans-serif, system-ui, sans-serif;
-
-  --radius-lg: 10px;
-  --radius-2xl: 20px;
-  --radius-3xl: 25.5px;
-  --radius-full: 50px;
-  --radius-full-2: 63.75px;
+  --font-serif: var(--font-serif), Georgia, serif;
+  --font-sans: var(--font-sans), system-ui, sans-serif;
 }
 
 :root {
-  --color-fresh-grass: #8ed462;
-  --color-cream-paper: #f5f1e4;
-  --color-ink-black: #2c2e2a;
-  --color-pure-white: #ffffff;
-  --color-sandstone: #e0dbce;
-  --color-stone-gray: #80827f;
-  --color-hairline-mist: #d5d5d4;
-  --color-pure-ink: #000000;
-  --color-sky-pop: #2ba0ff;
-  --color-coral-pop: #ff705d;
-  --color-sunshine-pop: #f5e211;
+  --steer-bg: #F7F5F0;
+  --steer-dark: #0D1612;
+  --steer-forest: #143026;
+  --steer-emerald: #1B4D3E;
+  --steer-gold: #D4AF37;
 }
 
 body {
-  background-color: var(--color-cream-paper);
-  color: var(--color-ink-black);
-  font-family: var(--font-inter), 'Inter', sans-serif;
+  background-color: #F7F5F0;
+  color: #0D1612;
+  font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
@@ -48,33 +35,60 @@ body {
   overflow-x: hidden;
 }
 
-/* MindMarket display headline scale */
-.font-display {
-  font-family: var(--font-inter), sans-serif;
-  letter-spacing: -0.06em;
-  line-height: 0.95;
+.font-serif {
+  font-family: var(--font-serif), Georgia, serif;
 }
 
-@keyframes breathingPulse {
-  0%, 100% {
-    transform: scale(1);
+.font-sans {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Luxury Glassmorphism & Subtle Accents */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(224, 218, 206, 0.7);
+}
+
+.glass-dark {
+  background: rgba(13, 22, 18, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gold-glow {
+  box-shadow: 0 10px 35px -5px rgba(212, 175, 55, 0.25);
+}
+
+.emerald-glow {
+  box-shadow: 0 12px 40px -10px rgba(20, 48, 38, 0.35);
+}
+
+.subtle-shadow {
+  box-shadow: 0 4px 24px -2px rgba(13, 22, 18, 0.06);
+}
+
+/* Elegant gold sheen */
+@keyframes goldSheen {
+  0% {
+    background-position: -200% 0;
   }
-  50% {
-    transform: scale(1.02);
+  100% {
+    background-position: 200% 0;
   }
 }
 
-.animate-breathing {
-  animation: breathingPulse 2.8s ease-in-out infinite;
-}
-
-.animate-breathing:hover,
-.animate-breathing:active {
-  animation: none;
-}
-
-.safe-pb {
-  padding-bottom: env(safe-area-inset-bottom, 16px);
+.sheen-gold {
+  background-image: linear-gradient(
+    110deg,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0) 80%
+  );
+  background-size: 200% 100%;
+  animation: goldSheen 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
