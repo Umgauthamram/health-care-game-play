@@ -318,10 +318,10 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col bg-[#FBF8F3]">
-      {/* Top Universal Website Navigation Bar */}
-      <header className="w-full bg-white/95 backdrop-blur-md border-b border-[#E8DED1] sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto px-4 sm:px-8 py-3.5 flex items-center justify-between">
+    <div className="w-full min-h-screen flex flex-col bg-white">
+      {/* Top Universal Website Header */}
+      <header className="w-full bg-white border-b border-[#E8DED1] sticky top-0 z-40">
+        <div className="w-full px-4 sm:px-8 py-3 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <span className="font-serif text-2xl font-bold tracking-tight text-[#153A2D]">
               Steer<span className="text-[#E27D30]">.</span>
@@ -338,7 +338,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
 
           <div className="flex items-center gap-3">
             <span className="hidden md:inline-flex text-xs text-[#5A6560] font-medium">
-              60-Second Clinical Assessment
+              Doctor-Led Assessment
             </span>
             <button
               type="button"
@@ -367,10 +367,10 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
         </div>
       </header>
 
-      {/* Main Responsive Game Container: Wide Desktop Layout with Split-Screen or Fluid Hero */}
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 flex flex-col justify-center">
+      {/* Full-Screen Content Area without contrasting outer boxes */}
+      <main className="flex-1 w-full flex flex-col justify-start px-4 sm:px-8 py-4 sm:py-6">
         <AnimatePresence mode="wait">
-          {/* 1. HOOK SCREEN */}
+          {/* 1. HOOK SCREEN (FULL BLEED HERO) */}
           {screen === "hook" && (
             <motion.div
               key="screen-hook"
@@ -378,22 +378,21 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 lg:p-12 border border-[#E8DED1] shadow-xl"
+              className="w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16 items-center"
             >
-              {/* Left Column (Desktop Hero Content) */}
+              {/* Left Column */}
               <div className="lg:col-span-7 flex flex-col items-start text-left">
                 <SteerBadge text="DOCTOR-LED METABOLIC SCIENCE" />
 
-                {/* Character Speech Intro */}
                 <div className="w-full my-4">
                   <GameCompanion
                     emotion="idle"
-                    message="Welcome to the metabolic arena! I'm Dr. Steer. Wonder why hunger strikes hard at 4pm even after an Indian lunch? Let's decode the biology!"
+                    message="Welcome! I'm Dr. Steer. Wonder why your appetite spikes right at 4pm? Let's decode the hormonal science together!"
                     size="md"
                   />
                 </div>
 
-                <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2220] leading-tight mt-2">
+                <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-[#1E2220] leading-tight">
                   Why does hunger hit hard at{" "}
                   <span className="text-[#E27D30] underline decoration-[#E27D30]/40 decoration-wavy">
                     4:00 PM
@@ -405,16 +404,14 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                   {GAME_CONTENT.hook.subhead}
                 </p>
 
-                {/* Indian Diet Card */}
                 <div className="mt-6 p-4 bg-[#FBF8F3] rounded-2xl border border-[#EADECF] flex items-center gap-4 text-left w-full max-w-xl">
                   <IndianThaliIllustration className="w-14 h-14 flex-shrink-0" />
                   <div className="text-sm text-[#5A6560]">
                     <strong className="text-[#153A2D] font-semibold block text-base">The 4pm Post-Thali Crash</strong>
-                    Dal, 2 rotis & curd at 1:30pm... yet by 4pm, your brain demands chai and namkeen. It is not weak discipline—it is an insulin & gut hormone drop.
+                    Dal, 2 rotis & curd at 1:30pm... yet by 4pm, your brain demands chai and namkeen. It is biology, not weak willpower.
                   </div>
                 </div>
 
-                {/* Desktop Action */}
                 <div className="mt-8 flex flex-col sm:flex-row items-center gap-4 w-full max-w-md">
                   <button
                     type="button"
@@ -437,15 +434,15 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                 </div>
 
                 <p className="text-[11px] text-[#8C9893] mt-3 leading-tight">
-                  *Educational game only. Not medical advice. Steer physicians evaluate blood panels and body composition tests before prescribing.
+                  *Educational game only. Not medical advice. Steer physicians evaluate tests before clinical prescriptions.
                 </p>
               </div>
 
-              {/* Right Column: Visual Game Interactive Hook Panel */}
-              <div className="lg:col-span-5 flex flex-col items-center justify-center bg-[#F4ECE1]/60 rounded-3xl p-8 border border-[#E8DED1]">
+              {/* Right Column */}
+              <div className="lg:col-span-5 flex flex-col items-center justify-center bg-[#FBF8F3] rounded-3xl p-8 border border-[#E8DED1]">
                 <div className="relative flex items-center justify-center mb-6">
                   <Clock4PMRadial className="w-48 h-48 sm:w-56 sm:h-56" />
-                  <div className="absolute -bottom-3 bg-white px-4 py-1.5 rounded-full shadow-lg border border-[#E8DED1] text-sm font-bold text-[#153A2D] flex items-center gap-2">
+                  <div className="absolute -bottom-3 bg-white px-4 py-1.5 rounded-full shadow-md border border-[#E8DED1] text-sm font-bold text-[#153A2D] flex items-center gap-2">
                     <span className="w-2.5 h-2.5 rounded-full bg-[#E27D30] animate-ping" />
                     <span>The 4:00 PM Glucagon Spike</span>
                   </div>
@@ -456,7 +453,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                     Test Your Metabolic IQ
                   </h3>
                   <p className="text-xs text-[#5A6560] mt-1.5 leading-relaxed">
-                    Swipe or tap 6 fast Myth or Fact cards to debunk old diet culture and see where your body stands.
+                    Swipe or tap 6 quick cards to debunk old diet culture and see where your body stands.
                   </p>
                 </div>
               </div>
@@ -471,7 +468,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="w-full max-w-3xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#E8DED1] shadow-xl flex flex-col justify-between"
+              className="w-full flex-1 max-w-4xl mx-auto flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-4">
@@ -483,14 +480,13 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                   </span>
                 </div>
 
-                {/* Character Guidance */}
                 <div className="mb-6">
                   <GameCompanion
                     emotion={chosenDoubts.length === 2 ? "celebrate" : "thinking"}
                     message={
                       chosenDoubts.length === 2
-                        ? "Perfect selections! Your answers will customize your final doctor scorecard."
-                        : "Pick 1 or 2 doubts about GLP-1 and modern weight treatments. We'll tailor your readout!"
+                        ? "Great choices! I've loaded your doubts into the game engine."
+                        : "Pick 1 or 2 doubts about modern metabolic care. We'll tailor your clinical readout!"
                     }
                     size="sm"
                   />
@@ -503,8 +499,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                   Select up to 2 areas you are most skeptical or curious about.
                 </p>
 
-                {/* Responsive Grid for Doubts */}
-                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {GAME_CONTENT.doubts.map((doubt) => {
                     const isSelected = chosenDoubts.includes(doubt.id);
                     const isMaxReached = chosenDoubts.length >= 2 && !isSelected;
@@ -534,7 +529,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                             {getDoubtIcon(doubt.id, isSelected)}
                           </div>
                           <div>
-                            <div className="text-sm sm:text-base font-semibold leading-tight">
+                            <div className="text-base font-semibold leading-tight">
                               {doubt.label}
                             </div>
                             <span
@@ -594,7 +589,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
             </motion.div>
           )}
 
-          {/* 3. SIX MYTH OR FACT CARDS */}
+          {/* 3. SIX MYTH OR FACT CARDS (FULL BLEED GAME STAGE) */}
           {screen === "quiz" && (
             <motion.div
               key="screen-quiz"
@@ -602,7 +597,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.25 }}
-              className="w-full max-w-2xl mx-auto bg-white rounded-3xl border border-[#E8DED1] shadow-xl overflow-hidden flex flex-col min-h-[580px]"
+              className="w-full flex-1 flex flex-col justify-start"
             >
               <QuizProgressBar
                 total={GAME_CONTENT.cards.length}
@@ -610,7 +605,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                 onBack={handleBack}
               />
 
-              <div className="flex-1 flex flex-col p-5 sm:p-8">
+              <div className="w-full flex-1 flex flex-col items-center justify-center py-4">
                 <QuizCardView
                   card={GAME_CONTENT.cards[currentCardIndex]}
                   cardIndex={currentCardIndex}
@@ -632,14 +627,13 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.35 }}
-              className="w-full max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#E8DED1] shadow-xl flex flex-col gap-6"
+              className="w-full max-w-5xl mx-auto flex flex-col gap-6"
             >
               <div className="flex items-center justify-between border-b border-[#E8DED1] pb-4">
                 <SteerBadge text="CLINICAL READOUT" />
                 <span className="text-sm font-bold text-[#E27D30]">{rank.badge}</span>
               </div>
 
-              {/* Character Congratulatory message */}
               <GameCompanion
                 emotion={score >= 4 ? "celebrate" : "encourage"}
                 message={
@@ -652,14 +646,12 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                 size="md"
               />
 
-              {/* Desktop 2-Column Readout Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                {/* Left Col: Score Stamp & DEXA info */}
                 <div className="lg:col-span-5 flex flex-col gap-5">
                   <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="p-5 bg-[#FBF8F3] rounded-3xl border border-[#E8DED1] flex items-center justify-between gap-4"
+                    className="p-6 bg-[#FBF8F3] rounded-3xl border border-[#E8DED1] flex items-center justify-between gap-4"
                   >
                     <div>
                       <div className="text-xs font-bold text-[#5A6560] uppercase tracking-wider">
@@ -701,8 +693,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                     </div>
                   </motion.div>
 
-                  {/* DEXA composition visual */}
-                  <div className="p-5 bg-white rounded-3xl border border-[#E8DED1] shadow-sm">
+                  <div className="p-6 bg-[#FBF8F3] rounded-3xl border border-[#E8DED1]">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-sm font-bold text-[#153A2D]">
                         The DEXA Metric: Muscle vs Fat
@@ -718,7 +709,6 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                   </div>
                 </div>
 
-                {/* Right Col: Tailored Advice & 4pm Food Tip */}
                 <div className="lg:col-span-7 flex flex-col gap-4">
                   <div className="text-xs font-bold text-[#153A2D] uppercase tracking-wider">
                     Targeted Insights for Your Doubts
@@ -730,9 +720,9 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                     return (
                       <div
                         key={doubtObj.id}
-                        className="p-4 bg-white rounded-2xl border-l-4 border-[#153A2D] border-[#E8DED1] shadow-sm"
+                        className="p-5 bg-[#FBF8F3] rounded-2xl border-l-4 border-[#153A2D] border-[#E8DED1]"
                       >
-                        <div className="flex items-center gap-2 text-sm font-bold text-[#153A2D]">
+                        <div className="flex items-center gap-2 text-base font-bold text-[#153A2D]">
                           {getDoubtIcon(doubtObj.id, false)}
                           <span>{doubtObj.readoutTitle}</span>
                         </div>
@@ -743,8 +733,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                     );
                   })}
 
-                  {/* Indian Diet 4pm Tip */}
-                  <div className="p-5 bg-[#F4ECE1] rounded-3xl border border-[#E27D30]/30 shadow-sm flex flex-col gap-2.5">
+                  <div className="p-6 bg-[#F4ECE1] rounded-3xl border border-[#E27D30]/30 flex flex-col gap-2.5">
                     <div className="flex items-center gap-3">
                       <IndianThaliIllustration className="w-10 h-10 flex-shrink-0" />
                       <h3 className="font-serif text-base font-bold text-[#153A2D]">
@@ -758,7 +747,6 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                 </div>
               </div>
 
-              {/* Bottom Actions */}
               <div className="mt-4 pt-6 border-t border-[#E8DED1] flex flex-col sm:flex-row items-center justify-between gap-4">
                 <button
                   type="button"
@@ -790,9 +778,8 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
-              className="w-full max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-10 border border-[#E8DED1] shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+              className="w-full max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
             >
-              {/* Left Column: Guarantees & Character */}
               <div className="lg:col-span-6 flex flex-col">
                 <SteerBadge text="DOCTOR-LED FIT ASSESSMENT" />
 
@@ -804,7 +791,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                   />
                 </div>
 
-                <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#1E2220] leading-snug">
+                <h2 className="font-serif text-3xl font-bold text-[#1E2220] leading-snug">
                   See if the Steer Programme Fits You
                 </h2>
                 <p className="text-sm text-[#5A6560] mt-2 leading-relaxed">
@@ -821,7 +808,6 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
                 </div>
               </div>
 
-              {/* Right Column: Lead Form */}
               <div className="lg:col-span-6 bg-[#FBF8F3] p-6 sm:p-8 rounded-3xl border border-[#E8DED1]">
                 <form onSubmit={handleLeadSubmit} className="flex flex-col gap-4">
                   {formErrors.general && (
@@ -940,7 +926,7 @@ export function GameEngine({ initialSource = "website", isEmbedded = false }: Ga
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.35, ease: "easeOut" }}
-              className="w-full max-w-2xl mx-auto bg-white rounded-3xl p-8 sm:p-12 border border-[#E8DED1] shadow-xl text-center flex flex-col items-center justify-center"
+              className="w-full max-w-2xl mx-auto py-8 text-center flex flex-col items-center justify-center"
             >
               <GameCompanion
                 emotion="victory"
